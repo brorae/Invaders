@@ -5,9 +5,9 @@ import java.awt.event.KeyListener;
 
 /**
  * Manages keyboard input for the provided screen.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public final class InputManager implements KeyListener {
 
@@ -27,7 +27,7 @@ public final class InputManager implements KeyListener {
 
 	/**
 	 * Returns shared instance of InputManager.
-	 * 
+	 *
 	 * @return Shared instance of InputManager.
 	 */
 	protected static InputManager getInstance() {
@@ -38,7 +38,7 @@ public final class InputManager implements KeyListener {
 
 	/**
 	 * Returns true if the provided key is currently pressed.
-	 * 
+	 *
 	 * @param keyCode
 	 *            Key number to check.
 	 * @return Key state.
@@ -49,7 +49,7 @@ public final class InputManager implements KeyListener {
 
 	/**
 	 * Changes the state of the key to pressed.
-	 * 
+	 *
 	 * @param key
 	 *            Key pressed.
 	 */
@@ -57,11 +57,12 @@ public final class InputManager implements KeyListener {
 	public void keyPressed(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = true;
+
 	}
 
 	/**
 	 * Changes the state of the key to not pressed.
-	 * 
+	 *
 	 * @param key
 	 *            Key released.
 	 */
@@ -73,7 +74,7 @@ public final class InputManager implements KeyListener {
 
 	/**
 	 * Does nothing.
-	 * 
+	 *
 	 * @param key
 	 *            Key typed.
 	 */
