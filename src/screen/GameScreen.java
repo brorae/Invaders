@@ -4,10 +4,13 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
+import engine.*;
 import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
+import engine.Sound;
+
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -71,6 +74,8 @@ public class GameScreen extends Screen {
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 
+	private Sound shootSound = new Sound("./music/laser.wav");
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -78,7 +83,7 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
-	 * @param bonnusLife
+	 * @param bonusLife
 	 *            Checks if a bonus life is awarded this level.
 	 * @param width
 	 *            Screen width.
@@ -167,8 +172,10 @@ public class GameScreen extends Screen {
 					this.ship.moveLeft();
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-					if (this.ship.shoot(this.bullets))
+					if (this.ship.shoot(this.bullets)) {
+						shootSound.playSoundLoop(0);
 						this.bulletsShot++;
+					}
 			}
 
 			if (this.enemyShipSpecial != null) {
@@ -272,6 +279,7 @@ public class GameScreen extends Screen {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
+				//bulletSound = new Sound("./music/laser.wav");
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
 					recyclable.add(bullet);
 					if (!this.ship.isDestroyed()) {
@@ -285,6 +293,9 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 						&& checkCollision(bullet, enemyShip)) {
+						/*
+						modified
+						 */
 						enemyShip.setHp();
 						if (enemyShip.getHp() == 0) {
 							this.score += enemyShip.getPointValue();
