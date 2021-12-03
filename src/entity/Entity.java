@@ -1,6 +1,6 @@
 package entity;
 
-import java.awt.Color;
+import java.awt.*;
 
 import engine.DrawManager.SpriteType;
 

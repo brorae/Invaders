@@ -23,6 +23,8 @@ public class EnemyShip extends Entity {
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 
+	private static final int BOSS_TYPE_POINTS = 1000;
+
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
 	/** Checks if the ship has been hit by a bullet. */
@@ -31,6 +33,7 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	int hp;
 
+	private int hp;
 	/**
 	 * Constructor, establishes the ship's properties.
 	 *
@@ -49,27 +52,30 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 
 		switch (this.spriteType) {
-			case EnemyShipA1:
-			case EnemyShipA2:
-				this.pointValue = A_TYPE_POINTS;
-				super.setColor(Color.ORANGE);
-				this.hp = 1;
-				break;
+		case EnemyShipA1:
+		case EnemyShipA2:
+			this.pointValue = A_TYPE_POINTS;
+			this.hp = 1;
+			break;
 			case EnemyShipB1:
-			case EnemyShipB2:
-				this.pointValue = B_TYPE_POINTS;
-				super.setColor(Color.BLUE);
-				this.hp = 2;
-				break;
-			case EnemyShipC1:
-			case EnemyShipC2:
-				this.pointValue = C_TYPE_POINTS;
-				super.setColor(Color.PINK);
-				this.hp = 3;
-				break;
-			default:
-				this.pointValue = 0;
-				break;
+		case EnemyShipB2:
+			this.pointValue = B_TYPE_POINTS;
+			this.hp = 1;
+			break;
+		case EnemyShipC1:
+		case EnemyShipC2:
+			this.pointValue = C_TYPE_POINTS;
+			this.hp = 1;
+			break;
+		case Boss:
+			this.width *= 4;
+			this.height *= 4;
+			this.pointValue = BOSS_TYPE_POINTS;
+			this.hp = 10;
+			break;
+		default:
+			this.pointValue = 0;
+			break;
 		}
 	}
 
@@ -155,11 +161,17 @@ public class EnemyShip extends Entity {
 	public final void destroy(EnemyShip enemyShip) {
 		if (enemyShip.hp == 0) {
 			this.isDestroyed = true;
-			this.spriteType = SpriteType.Explosion;
-		} else {
+			if (this.spriteType == SpriteType.Boss){
+				this.spriteType = SpriteType.BossExplosion;
+			}
+			else{
+				this.spriteType = SpriteType.Explosion;
+			}
+
+		}
+		else {
 			this.isDestroyed = false;
 		}
-
 	}
 
 	/**

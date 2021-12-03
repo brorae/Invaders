@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import entity.Bullet;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
@@ -130,7 +131,9 @@ public final class DrawManager {
 		 */
 		EnemyShipSpecial,
 		/** Destroyed enemy ship. */
-		Explosion
+		Explosion,
+		Boss,
+		BossExplosion
 	}
 
 	;
@@ -160,6 +163,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
+			spriteMap.put(SpriteType.Boss, new boolean[57][31]);
+			spriteMap.put(SpriteType.BossExplosion, new boolean[57][31]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");

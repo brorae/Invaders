@@ -86,6 +86,14 @@ public final class Core {
 	 * @param args
 	 *            Program args, ignored.
 	 */
+
+	public static boolean isFinalLevel(GameSettings gameSettings) {
+		if (gameSettings == FINAL_LEVEL) {
+			return true;
+		}
+		return false;
+	}
+
 	public static void main(final String[] args) {
 		try {
 			LOGGER.setUseParentHandlers(false);
@@ -117,7 +125,7 @@ public final class Core {
 		gameSettings.add(SETTINGS_LEVEL_4);
 		gameSettings.add(SETTINGS_LEVEL_5);
 		gameSettings.add(SETTINGS_LEVEL_6);
-		gameSettings.add(SETTINGS_LEVEL_7);
+		gameSettings.add(FINAL_LEVEL);
 
 		GameState gameState;
 

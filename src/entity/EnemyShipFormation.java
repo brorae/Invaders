@@ -55,7 +55,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Logger logger;
 	/** Screen to draw ships on. */
 	private Screen screen;
-
 	/** List of enemy ships forming the formation. */
 	private List<List<EnemyShip>> enemyShips;
 	/** Minimum time between shots. */
@@ -131,6 +130,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.shooters = new ArrayList<EnemyShip>();
 		SpriteType spriteType;
 
+
+		if (Core.isFinalLevel(gameSettings)){
+			nShipsWide = 1;
+			nShipsHigh = 1;
+		}
 		this.logger.info("Initializing " + nShipsWide + "x" + nShipsHigh
 			+ " ship formation in (" + positionX + "," + positionY + ")");
 
@@ -139,26 +143,32 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.enemyShips.add(new ArrayList<EnemyShip>());
 
 		for (List<EnemyShip> column : this.enemyShips) {
-			for (int i = 0; i < this.nShipsHigh; i++) {
-				if (i / (float)this.nShipsHigh < PROPORTION_C)
-					spriteType = SpriteType.EnemyShipC1;
-				else if (i / (float)this.nShipsHigh < PROPORTION_B
-					+ PROPORTION_C)
-					spriteType = SpriteType.EnemyShipB1;
-				else
-					spriteType = SpriteType.EnemyShipA1;
-
-				column.add(new EnemyShip((SEPARATION_DISTANCE
-					* this.enemyShips.indexOf(column))
-					+ positionX, (SEPARATION_DISTANCE * i)
-					+ positionY, spriteType));
+			if (Core.isFinalLevel(gameSettings)){
+				spriteType = SpriteType.Boss;
+				column.add(new EnemyShip(180,100, spriteType));
 				this.shipCount++;
+			}
+			else {
+				for (int i = 0; i < this.nShipsHigh; i++) {
+					if (i / (float) this.nShipsHigh < PROPORTION_C)
+						spriteType = SpriteType.EnemyShipC1;
+					else if (i / (float) this.nShipsHigh < PROPORTION_B
+						+ PROPORTION_C)
+						spriteType = SpriteType.EnemyShipB1;
+					else
+						spriteType = SpriteType.EnemyShipA1;
+
+					column.add(new EnemyShip((SEPARATION_DISTANCE
+						* this.enemyShips.indexOf(column))
+						+ positionX, (SEPARATION_DISTANCE * i)
+						+ positionY, spriteType));
+					this.shipCount++;
+				}
 			}
 		}
 
 		this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
 		this.shipHeight = this.enemyShips.get(0).get(0).getHeight();
-
 		this.width = (this.nShipsWide - 1) * SEPARATION_DISTANCE
 			+ this.shipWidth;
 		this.height = (this.nShipsHigh - 1) * SEPARATION_DISTANCE
