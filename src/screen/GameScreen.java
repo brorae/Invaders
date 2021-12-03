@@ -241,7 +241,7 @@ public class GameScreen extends Screen {
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
-			int countdown = (int) ((INPUT_DELAY
+			int countdown = (int)((INPUT_DELAY
 				- (System.currentTimeMillis()
 				- this.gameStartTime)) / 1000);
 			drawManager.drawCountDown(this, this.level, countdown,

@@ -75,7 +75,6 @@ public final class Core {
 	private static Sound bgm;
 	private static Sound mainBgm;
 
-
 	/**
 	 * Test implementation.
 	 *
@@ -137,7 +136,7 @@ public final class Core {
 					// Game & score.
 					do {
 						// One extra live every few levels.
-						bgm = new Sound(gameSettings.get(gameState.getLevel()-1).getWavPath());
+						bgm = new Sound(gameSettings.get(gameState.getLevel() - 1).getWavPath());
 						bgm.playSoundLoop(1);
 						boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
@@ -151,7 +150,7 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
-						gameState = ((GameScreen) currentScreen).getGameState();
+						gameState = ((GameScreen)currentScreen).getGameState();
 
 						gameState = new GameState(gameState.getLevel() + 1,
 							gameState.getScore(),

@@ -1,6 +1,7 @@
 package engine;
 
 import java.io.File;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -18,19 +19,18 @@ public class Sound {
 	}
 	*/
 	public void playSoundLoop(int num) {
-		try{
+		try {
 			clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(this.file));
 			if (num == 1)
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
-			else if(num == 0)
+			else if (num == 0)
 				clip.start();
 
 			//Thread.sleep(clip.getMicrosecondLength()/1000);
-		}
-		catch(Exception e)
-		{
-			System.err.println("Put the music.wav file in the sound folder if you want to play background music, only optional!");
+		} catch (Exception e) {
+			System.err.println(
+				"Put the music.wav file in the sound folder if you want to play background music, only optional!");
 		}
 
 	}
@@ -48,7 +48,7 @@ public class Sound {
 	//        }
 	//    }
 
-	public void pause(){
+	public void pause() {
 		clip.stop();
 		clip.close();
 		//this.file = null;
