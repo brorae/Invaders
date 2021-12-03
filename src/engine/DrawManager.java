@@ -389,7 +389,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 4);
+			* 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 5)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -489,7 +489,7 @@ public final class DrawManager {
 	public void drawManualString(final Screen screen, final String string) {
 		backBufferGraphics.setFont(fontBigger);
 		backBufferGraphics.drawString(string, screen.getWidth() - fontBigMetrics.stringWidth(string) * 2,
-				screen.getHeight() / 10);
+			screen.getHeight() / 10);
 	}
 
 	/**
@@ -648,8 +648,8 @@ public final class DrawManager {
 		String summaryContents6 = "The game consists of a total of 7 stages.";
 
 		backBufferGraphics.drawString(summaryTitleString,
-				screen.getWidth() / 2 - fontRegularMetrics.stringWidth(summaryTitleString) / 2
-				, screen.getHeight() / 10);
+			screen.getWidth() / 2 - fontRegularMetrics.stringWidth(summaryTitleString) / 2
+			, screen.getHeight() / 10);
 
 		backBufferGraphics.drawString(summaryContents1, 10, screen.getHeight() / 4);
 

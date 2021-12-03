@@ -181,19 +181,19 @@ public final class Core {
 					currentScreen = new HighScoreScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " high score screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing high score screen.");
-				break;
-			case 5:
-				// Manual.
-				currentScreen = new SummaryScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing high score screen.");
+					break;
+				case 5:
+					// Manual.
+					currentScreen = new SummaryScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " summary screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing manual screen.");
-				break;
-			default:
-				break;
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing manual screen.");
+					break;
+				default:
+					break;
 			}
 
 		} while (returnCode != 0);
