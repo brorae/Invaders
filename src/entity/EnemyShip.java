@@ -23,6 +23,8 @@ public class EnemyShip extends Entity {
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 
+	private static final int BOSS_TYPE_POINTS = 1000;
+
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
 	/** Checks if the ship has been hit by a bullet. */
@@ -30,6 +32,7 @@ public class EnemyShip extends Entity {
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
 
+	private int hp;
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -42,6 +45,7 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(final int positionX, final int positionY,
 			final SpriteType spriteType) {
+
 		super(positionX, positionY, 12 * 2, 8 * 2, Color.WHITE);
 
 		this.spriteType = spriteType;
@@ -52,14 +56,23 @@ public class EnemyShip extends Entity {
 		case EnemyShipA1:
 		case EnemyShipA2:
 			this.pointValue = A_TYPE_POINTS;
+			this.hp = 1;
 			break;
-		case EnemyShipB1:
+			case EnemyShipB1:
 		case EnemyShipB2:
 			this.pointValue = B_TYPE_POINTS;
+			this.hp = 1;
 			break;
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.hp = 1;
+			break;
+		case Boss:
+			this.width *= 4;
+			this.height *= 4;
+			this.pointValue = BOSS_TYPE_POINTS;
+			this.hp = 10;
 			break;
 		default:
 			this.pointValue = 0;
@@ -86,6 +99,13 @@ public class EnemyShip extends Entity {
 	 */
 	public final int getPointValue() {
 		return this.pointValue;
+	}
+
+	public final void setHp() {
+		this.hp--;
+	}
+	public final int getHp() {
+		return this.hp;
 	}
 
 	/**
@@ -136,9 +156,20 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
-		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+	public final void destroy(EnemyShip enemyShip) {
+		if (enemyShip.hp == 0) {
+			this.isDestroyed = true;
+			if (this.spriteType == SpriteType.Boss){
+				this.spriteType = SpriteType.BossExplosion;
+			}
+			else{
+				this.spriteType = SpriteType.Explosion;
+			}
+
+		}
+		else {
+			this.isDestroyed = false;
+		}
 	}
 
 	/**
