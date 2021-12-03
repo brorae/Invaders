@@ -64,9 +64,8 @@ public final class DrawManager {
 	 * Big sized font.
 	 */
 	private static Font fontBig;
-	/**
-	 * Big sized font properties.
-	 */
+	private static Font fontBigger;
+	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
 
 	/**
@@ -168,6 +167,7 @@ public final class DrawManager {
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
+			fontBigger = fileManager.loadFont(34f);
 			logger.info("Finished loading the fonts.");
 
 		} catch (IOException e) {
@@ -370,6 +370,7 @@ public final class DrawManager {
 		String playString = "Play";
 		String highScoresString = "High scores";
 		String exitString = "exit";
+		String enterManual = "?";
 
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
@@ -388,7 +389,12 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-			* 2 + fontRegularMetrics.getHeight() * 4);
+				* 2 + fontRegularMetrics.getHeight() * 4);
+		if (option == 5)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawManualString(screen, enterManual);
 	}
 
 	/**
@@ -478,6 +484,12 @@ public final class DrawManager {
 				screen.getHeight() / 4 + fontRegularMetrics.getHeight()
 					* 14);
 		}
+	}
+
+	public void drawManualString(final Screen screen, final String string) {
+		backBufferGraphics.setFont(fontBigger);
+		backBufferGraphics.drawString(string, screen.getWidth() - fontBigMetrics.stringWidth(string) * 2,
+				screen.getHeight() / 10);
 	}
 
 	/**
@@ -622,5 +634,32 @@ public final class DrawManager {
 		else
 			drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
 				+ fontBigMetrics.getHeight() / 3);
+	}
+
+	public void drawSummaryScreen(final Screen screen) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String summaryTitleString = "SUMMARY";
+		String summaryContents1 = "Press the arrow keys to move.";
+		String summaryContents2 = "Press Space bar to fire bullet.";
+		String summaryContents3 = "Total Lives is 3 points,";
+		String summaryContents4 = "and 0 point to end this game.";
+		String summaryContents5 = "At the end of the stage, you gain a 1 live point.";
+		String summaryContents6 = "The game consists of a total of 7 stages.";
+
+		backBufferGraphics.drawString(summaryTitleString,
+				screen.getWidth() / 2 - fontRegularMetrics.stringWidth(summaryTitleString) / 2
+				, screen.getHeight() / 10);
+
+		backBufferGraphics.drawString(summaryContents1, 10, screen.getHeight() / 4);
+
+		backBufferGraphics.drawString(summaryContents2, 10, screen.getHeight() * 3 / 8);
+
+		backBufferGraphics.drawString(summaryContents3, 10, screen.getHeight() / 2);
+		backBufferGraphics.drawString(summaryContents4, 10, screen.getHeight() * 7 / 16);
+
+		backBufferGraphics.drawString(summaryContents5, 10, screen.getHeight() * 5 / 8);
+
+		backBufferGraphics.drawString(summaryContents6, 10, screen.getHeight() * 3 / 4);
 	}
 }
