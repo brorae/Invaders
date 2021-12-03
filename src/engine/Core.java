@@ -12,6 +12,7 @@ import screen.GameScreen;
 import screen.HighScoreScreen;
 import screen.ScoreScreen;
 import screen.Screen;
+import screen.SummaryScreen;
 import screen.TitleScreen;
 
 /**
@@ -171,6 +172,15 @@ public final class Core {
 						+ " high score screen at " + FPS + " fps.");
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing high score screen.");
+				break;
+
+			case 5:
+				// Manual.
+				currentScreen = new SummaryScreen(width, height, FPS);
+				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+						+ " summary screen at " + FPS + " fps.");
+				returnCode = frame.setScreen(currentScreen);
+				LOGGER.info("Closing manual screen.");
 				break;
 			default:
 				break;
