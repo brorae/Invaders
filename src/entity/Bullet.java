@@ -30,7 +30,7 @@ public class Bullet extends Entity {
 	 *            direction - positive is down.
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed) {
-		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
+		super(positionX, positionY, 3 * 2, 5 * 2, Color.ORANGE);
 
 		this.speed = speed;
 		setSprite();

@@ -16,15 +16,15 @@ import engine.GameSettings;
 
 /**
  * Groups enemy ships into a formation that moves together.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/** Initial position in the x-axis. */
 	private static final int INIT_POS_X = 20;
-	/** Initial position in the x-axis. */
+	/** Initial position in the y-axis. */
 	private static final int INIT_POS_Y = 100;
 	/** Distance between ships. */
 	private static final int SEPARATION_DISTANCE = 40;
@@ -102,11 +102,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		LEFT,
 		/** Movement to the bottom of the screen. */
 		DOWN
-	};
+	}
+
+	;
 
 	/**
 	 * Constructor, sets the initial conditions.
-	 * 
+	 *
 	 * @param gameSettings
 	 *            Current game settings.
 	 */
@@ -119,8 +121,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.nShipsWide = gameSettings.getFormationWidth();
 		this.nShipsHigh = gameSettings.getFormationHeight();
 		this.shootingInterval = gameSettings.getShootingFrecuency();
-		this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
-				* SHOOTING_VARIANCE);
+		this.shootingVariance = (int)(gameSettings.getShootingFrecuency()
+			* SHOOTING_VARIANCE);
 		this.baseSpeed = gameSettings.getBaseSpeed();
 		this.movementSpeed = this.baseSpeed;
 		this.positionX = INIT_POS_X;
@@ -134,7 +136,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			nShipsHigh = 1;
 		}
 		this.logger.info("Initializing " + nShipsWide + "x" + nShipsHigh
-				+ " ship formation in (" + positionX + "," + positionY + ")");
+			+ " ship formation in (" + positionX + "," + positionY + ")");
 
 		// Each sub-list is a column on the formation.
 		for (int i = 0; i < this.nShipsWide; i++)
@@ -168,9 +170,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
 		this.shipHeight = this.enemyShips.get(0).get(0).getHeight();
 		this.width = (this.nShipsWide - 1) * SEPARATION_DISTANCE
-				+ this.shipWidth;
+			+ this.shipWidth;
 		this.height = (this.nShipsHigh - 1) * SEPARATION_DISTANCE
-				+ this.shipHeight;
+			+ this.shipHeight;
 
 		for (List<EnemyShip> column : this.enemyShips)
 			this.shooters.add(column.get(column.size() - 1));
@@ -178,7 +180,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Associates the formation to a given screen.
-	 * 
+	 *
 	 * @param newScreen
 	 *            Screen to attach.
 	 */
@@ -193,37 +195,37 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (EnemyShip enemyShip : column)
 				drawManager.drawEntity(enemyShip, enemyShip.getPositionX(),
-						enemyShip.getPositionY());
+					enemyShip.getPositionY());
 	}
 
 	/**
 	 * Updates the position of the ships.
 	 */
 	public final void update() {
-		if(this.shootingCooldown == null) {
+		if (this.shootingCooldown == null) {
 			this.shootingCooldown = Core.getVariableCooldown(shootingInterval,
-					shootingVariance);
+				shootingVariance);
 			this.shootingCooldown.reset();
 		}
-		
+
 		cleanUp();
 
 		int movementX = 0;
 		int movementY = 0;
-		double remainingProportion = (double) this.shipCount
-				/ (this.nShipsHigh * this.nShipsWide);
-		this.movementSpeed = (int) (Math.pow(remainingProportion, 2)
-				* this.baseSpeed);
+		double remainingProportion = (double)this.shipCount
+			/ (this.nShipsHigh * this.nShipsWide);
+		this.movementSpeed = (int)(Math.pow(remainingProportion, 2)
+			* this.baseSpeed);
 		this.movementSpeed += MINIMUM_SPEED;
-		
+
 		movementInterval++;
 		if (movementInterval >= this.movementSpeed) {
 			movementInterval = 0;
 
 			boolean isAtBottom = positionY
-					+ this.height > screen.getHeight() - BOTTOM_MARGIN;
+				+ this.height > screen.getHeight() - BOTTOM_MARGIN;
 			boolean isAtRightSide = positionX
-					+ this.width >= screen.getWidth() - SIDE_MARGIN;
+				+ this.width >= screen.getWidth() - SIDE_MARGIN;
 			boolean isAtLeftSide = positionX <= SIDE_MARGIN;
 			boolean isAtHorizontalAltitude = positionY % DESCENT_DISTANCE == 0;
 
@@ -276,8 +278,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					if (ship != null && ship.isDestroyed()) {
 						destroyed.add(ship);
 						this.logger.info("Removed enemy "
-								+ column.indexOf(ship) + " from column "
-								+ this.enemyShips.indexOf(column));
+							+ column.indexOf(ship) + " from column "
+							+ this.enemyShips.indexOf(column));
 					}
 				}
 				column.removeAll(destroyed);
@@ -302,10 +304,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			if (!column.isEmpty()) {
 				// Height of this column
 				int columnSize = column.get(column.size() - 1).positionY
-						- this.positionY + this.shipHeight;
+					- this.positionY + this.shipHeight;
 				maxColumn = Math.max(maxColumn, columnSize);
 				minPositionY = Math.min(minPositionY, column.get(0)
-						.getPositionY());
+					.getPositionY());
 			} else {
 				// Empty column, we remove it.
 				emptyColumns.add(this.enemyShips.indexOf(column));
@@ -318,7 +320,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		int leftMostPoint = 0;
 		int rightMostPoint = 0;
-		
+
 		for (List<EnemyShip> column : this.enemyShips) {
 			if (!column.isEmpty()) {
 				if (leftMostPoint == 0)
@@ -336,25 +338,25 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Shoots a bullet downwards.
-	 * 
+	 *
 	 * @param bullets
 	 *            Bullets set to add the bullet being shot.
 	 */
 	public final void shoot(final Set<Bullet> bullets) {
 		// For now, only ships in the bottom row are able to shoot.
-		int index = (int) (Math.random() * this.shooters.size());
+		int index = (int)(Math.random() * this.shooters.size());
 		EnemyShip shooter = this.shooters.get(index);
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+				+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
 		}
 	}
 
 	/**
 	 * Destroys a ship.
-	 * 
+	 *
 	 * @param destroyedShip
 	 *            Ship to be destroyed.
 	 */
@@ -364,7 +366,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				if (column.get(i).equals(destroyedShip)) {
 					column.get(i).destroy(column.get(i));
 					this.logger.info("Destroyed ship in ("
-							+ this.enemyShips.indexOf(column) + "," + i + ")");
+						+ this.enemyShips.indexOf(column) + "," + i + ")");
 				}
 
 		// Updates the list of ships that can shoot the player.
@@ -379,14 +381,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 
 			EnemyShip nextShooter = getNextShooter(this.enemyShips
-					.get(destroyedShipColumnIndex));
+				.get(destroyedShipColumnIndex));
 
 			if (nextShooter != null)
 				this.shooters.set(destroyedShipIndex, nextShooter);
 			else {
 				this.shooters.remove(destroyedShipIndex);
 				this.logger.info("Shooters list reduced to "
-						+ this.shooters.size() + " members.");
+					+ this.shooters.size() + " members.");
 			}
 		}
 
@@ -395,7 +397,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Gets the ship on a given column that will be in charge of shooting.
-	 * 
+	 *
 	 * @param column
 	 *            Column to search.
 	 * @return New shooter ship.
@@ -414,7 +416,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Returns an iterator over the ships in the formation.
-	 * 
+	 *
 	 * @return Iterator over the enemy ships.
 	 */
 	@Override
@@ -430,7 +432,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Checks if there are any ships remaining.
-	 * 
+	 *
 	 * @return True when all ships have been destroyed.
 	 */
 	public final boolean isEmpty() {

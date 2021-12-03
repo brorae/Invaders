@@ -17,6 +17,8 @@ public class GameSettings {
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
 
+	private String wavPath;
+
 	/**
 	 * Constructor.
 	 *
@@ -30,11 +32,12 @@ public class GameSettings {
 	 *            Frecuency of enemy shootings, +/- 30%.
 	 */
 	public GameSettings(final int formationWidth, final int formationHeight,
-		final int baseSpeed, final int shootingFrecuency) {
+		final int baseSpeed, final int shootingFrecuency, String wavPath) {
 		this.formationWidth = formationWidth;
 		this.formationHeight = formationHeight;
 		this.baseSpeed = baseSpeed;
 		this.shootingFrecuency = shootingFrecuency;
+		this.wavPath = wavPath;
 	}
 
 	/**
@@ -65,4 +68,7 @@ public class GameSettings {
 		return shootingFrecuency;
 	}
 
+	public String getWavPath() {
+		return wavPath;
+	}
 }

@@ -9,15 +9,15 @@ package engine;
 public class GameState {
 
 	/** Current game level. */
-	private int level;
+	private int level; //현재 몇레벨인지.
 	/** Current score. */
-	private int score;
+	private int score; //현재 스코어 몇점인지.
 	/** Lives currently remaining. */
-	private int livesRemaining;
+	private int livesRemaining; //현재 남은 목숨 몇개인지.
 	/** Bullets shot until now. */
-	private int bulletsShot;
+	private int bulletsShot; // 지금까지 쏜 총알.
 	/** Ships destroyed until now. */
-	private int shipsDestroyed;
+	private int shipsDestroyed; //지금까지 부서진 배의 수.
 
 	/**
 	 * Constructor.
