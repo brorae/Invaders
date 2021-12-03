@@ -24,55 +24,111 @@ import entity.Ship;
  */
 public final class DrawManager {
 
-	/** Singleton instance of the class. */
+	/**
+	 * Singleton instance of the class.
+	 */
 	private static DrawManager instance;
-	/** Current frame. */
+	/**
+	 * Current frame.
+	 */
 	private static Frame frame;
-	/** FileManager instance. */
+	/**
+	 * FileManager instance.
+	 */
 	private static FileManager fileManager;
-	/** Application logger. */
+	/**
+	 * Application logger.
+	 */
 	private static Logger logger;
-	/** Graphics context. */
+	/**
+	 * Graphics context.
+	 */
 	private static Graphics graphics;
-	/** Buffer Graphics. */
+	/**
+	 * Buffer Graphics.
+	 */
 	private static Graphics backBufferGraphics;
-	/** Buffer image. */
+	/**
+	 * Buffer image.
+	 */
 	private static BufferedImage backBuffer;
-	/** Normal sized font. */
+	/**
+	 * Normal sized font.
+	 */
 	private static Font fontRegular;
-	/** Normal sized font properties. */
+	/**
+	 * Normal sized font properties.
+	 */
 	private static FontMetrics fontRegularMetrics;
-	/** Big sized font. */
+	/**
+	 * Big sized font.
+	 */
 	private static Font fontBig;
-	/** Big sized font properties. */
+	/**
+	 * Big sized font properties.
+	 */
 	private static FontMetrics fontBigMetrics;
 
-	/** Sprite types mapped to their images. */
+	/**
+	 * Sprite types mapped to their images.
+	 */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
-	/** Sprite types. */
+	/**
+	 * Sprite types.
+	 */
 	public static enum SpriteType {
-		/** Player ship. */
+		/**
+		 * Player ship.
+		 */
 		Ship,
-		/** Destroyed player ship. */
+		/**
+		 * Destroyed player ship.
+		 */
 		ShipDestroyed,
-		/** Player bullet. */
+		/**
+		 * Destroyed player ship - left
+		 */
+		ShipDestroyedLeft,
+		/**
+		 * Destroyed player ship - right
+		 */
+		ShipDestroyedRight,
+		/**
+		 * Player bullet.
+		 */
 		Bullet,
-		/** Enemy bullet. */
+		/**
+		 * Enemy bullet.
+		 */
 		EnemyBullet,
-		/** First enemy ship - first form. */
+		/**
+		 * First enemy ship - first form.
+		 */
 		EnemyShipA1,
-		/** First enemy ship - second form. */
+		/**
+		 * First enemy ship - second form.
+		 */
 		EnemyShipA2,
-		/** Second enemy ship - first form. */
+		/**
+		 * Second enemy ship - first form.
+		 */
 		EnemyShipB1,
-		/** Second enemy ship - second form. */
+		/**
+		 * Second enemy ship - second form.
+		 */
 		EnemyShipB2,
-		/** Third enemy ship - first form. */
+		/**
+		 * Third enemy ship - first form.
+		 */
 		EnemyShipC1,
-		/** Third enemy ship - second form. */
+		/**
+		 * Third enemy ship - second form.
+		 */
 		EnemyShipC2,
-		/** Bonus ship. */
+		/**
+		 * Bonus ship.
+		 */
 		EnemyShipSpecial,
 		/** Destroyed enemy ship. */
 		Explosion
@@ -92,7 +148,9 @@ public final class DrawManager {
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
 
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
-			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipDestroyed, new boolean[17][8]);
+			spriteMap.put(SpriteType.ShipDestroyedLeft, new boolean[17][8]);
+			spriteMap.put(SpriteType.ShipDestroyedRight, new boolean[17][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
@@ -189,8 +247,12 @@ public final class DrawManager {
 	public void drawEntity(final Entity entity, final int positionX,
 		final int positionY) {
 		boolean[][] image = spriteMap.get(entity.getSpriteType());
-
-		backBufferGraphics.setColor(entity.getColor());
+		if (entity.getSpriteType() == SpriteType.ShipDestroyedLeft
+			|| entity.getSpriteType() == SpriteType.ShipDestroyedRight) {
+			backBufferGraphics.setColor(Color.red);
+		} else {
+			backBufferGraphics.setColor(entity.getColor());
+		}
 		for (int i = 0; i < image.length; i++)
 			for (int j = 0; j < image[i].length; j++)
 				if (image[i][j])
