@@ -5,6 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import engine.*;
+import engine.Cooldown;
+import engine.Core;
+import engine.GameSettings;
+import engine.GameState;
+import engine.Sound;
+
 import entity.Bullet;
 import entity.BulletPool;
 import entity.EnemyShip;
@@ -67,6 +73,8 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+
+	private Sound shootSound = new Sound("./music/laser.wav");
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -163,11 +171,11 @@ public class GameScreen extends Screen {
 				if (moveLeft && !isLeftBorder) {
 					this.ship.moveLeft();
 				}
-				if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+				if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
 					if (this.ship.shoot(this.bullets)) {
+						shootSound.playSoundLoop(0);
 						this.bulletsShot++;
 					}
-				}
 			}
 
 			if (this.enemyShipSpecial != null) {

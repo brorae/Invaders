@@ -8,13 +8,21 @@ package engine;
  */
 public class Cooldown {
 
-	/** Cooldown duration. */
+	/**
+	 * Cooldown duration.
+	 */
 	private int milliseconds;
-	/** Maximum difference between durations. */
+	/**
+	 * Maximum difference between durations.
+	 */
 	private int variance;
-	/** Duration of this run, varies between runs if variance > 0. */
+	/**
+	 * Duration of this run, varies between runs if variance > 0.
+	 */
 	private int duration;
-	/** Beginning time. */
+	/**
+	 * Beginning time.
+	 */
 	private long time;
 
 	/**
@@ -39,6 +47,7 @@ public class Cooldown {
 	 *            Time until cooldown period is finished.
 	 * @param variance
 	 *            Variance in the cooldown period.
+
 	 */
 	protected Cooldown(final int milliseconds, final int variance) {
 		this.milliseconds = milliseconds;
@@ -65,7 +74,11 @@ public class Cooldown {
 		this.time = System.currentTimeMillis();
 		if (this.variance != 0)
 			this.duration = (this.milliseconds - this.variance)
-				+ (int) (Math.random()
+				+ (int)(Math.random()
 				* (this.milliseconds + this.variance));
+	}
+
+	public long getTime() {
+		return this.time;
 	}
 }
