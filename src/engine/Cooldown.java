@@ -4,6 +4,7 @@ package engine;
  * Imposes a cooldown period between two actions.
  *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
+ *
  */
 public class Cooldown {
 
@@ -28,7 +29,8 @@ public class Cooldown {
 	 * Constructor, established the time until the action can be performed
 	 * again.
 	 *
-	 * @param milliseconds Time until cooldown period is finished.
+	 * @param milliseconds
+	 *            Time until cooldown period is finished.
 	 */
 	protected Cooldown(final int milliseconds) {
 		this.milliseconds = milliseconds;
@@ -41,8 +43,12 @@ public class Cooldown {
 	 * Constructor, established the time until the action can be performed
 	 * again, with a variation of +/- variance.
 	 *
-	 * @param milliseconds Time until cooldown period is finished.
-	 * @param variance     Variance in the cooldown period.
+
+	 * @param milliseconds
+	 *            Time until cooldown period is finished.
+	 * @param variance
+	 *            Variance in the cooldown period.
+
 	 */
 	protected Cooldown(final int milliseconds, final int variance) {
 		this.milliseconds = milliseconds;
