@@ -15,6 +15,11 @@ import screen.Screen;
 import screen.SummaryScreen;
 import screen.TitleScreen;
 
+
+/*
+Test 해보기
+*/
+
 /**
  * Implements core game logic.
  *
@@ -39,7 +44,6 @@ public final class Core {
 
 	/** Difficulty settings for level 1. */
 	private static final GameSettings SETTINGS_LEVEL_1 =
-
 		new GameSettings(5, 4, 60, 2000, "./music/superMario.wav");
 	/** Difficulty settings for level 2. */
 	private static final GameSettings SETTINGS_LEVEL_2 =
@@ -73,7 +77,6 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
-
 	private static Sound bgm;
 	private static Sound mainBgm;
 
@@ -178,7 +181,6 @@ public final class Core {
 					currentScreen = new HighScoreScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " high score screen at " + FPS + " fps.");
-
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing high score screen.");
 				break;

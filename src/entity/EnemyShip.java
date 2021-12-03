@@ -29,6 +29,7 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
+	int hp;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -43,7 +44,6 @@ public class EnemyShip extends Entity {
 	public EnemyShip(final int positionX, final int positionY,
 		final SpriteType spriteType) {
 		super(positionX, positionY, 12 * 2, 8 * 2, Color.WHITE);
-
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
@@ -52,14 +52,20 @@ public class EnemyShip extends Entity {
 			case EnemyShipA1:
 			case EnemyShipA2:
 				this.pointValue = A_TYPE_POINTS;
+				super.setColor(Color.ORANGE);
+				this.hp = 1;
 				break;
 			case EnemyShipB1:
 			case EnemyShipB2:
 				this.pointValue = B_TYPE_POINTS;
+				super.setColor(Color.BLUE);
+				this.hp = 2;
 				break;
 			case EnemyShipC1:
 			case EnemyShipC2:
 				this.pointValue = C_TYPE_POINTS;
+				super.setColor(Color.PINK);
+				this.hp = 3;
 				break;
 			default:
 				this.pointValue = 0;
@@ -75,6 +81,7 @@ public class EnemyShip extends Entity {
 		super(-32, 60, 16 * 2, 7 * 2, Color.RED);
 
 		this.spriteType = SpriteType.EnemyShipSpecial;
+		this.hp = 0;
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 	}
@@ -86,6 +93,15 @@ public class EnemyShip extends Entity {
 	 */
 	public final int getPointValue() {
 		return this.pointValue;
+	}
+
+	// 총알을 맞았을때 hp를 감소시키기위함.
+	public final void setHp() {
+		this.hp--;
+	}
+
+	public final int getHp() {
+		return this.hp;
 	}
 
 	/**
@@ -136,9 +152,14 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
-		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+	public final void destroy(EnemyShip enemyShip) {
+		if (enemyShip.hp == 0) {
+			this.isDestroyed = true;
+			this.spriteType = SpriteType.Explosion;
+		} else {
+			this.isDestroyed = false;
+		}
+
 	}
 
 	/**
@@ -149,4 +170,5 @@ public class EnemyShip extends Entity {
 	public final boolean isDestroyed() {
 		return this.isDestroyed;
 	}
+
 }

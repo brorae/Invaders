@@ -43,7 +43,6 @@ public class Cooldown {
 	 * Constructor, established the time until the action can be performed
 	 * again, with a variation of +/- variance.
 	 *
-
 	 * @param milliseconds
 	 *            Time until cooldown period is finished.
 	 * @param variance

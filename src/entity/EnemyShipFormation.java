@@ -24,7 +24,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/** Initial position in the x-axis. */
 	private static final int INIT_POS_X = 20;
-	/** Initial position in the x-axis. */
+	/** Initial position in the y-axis. */
 	private static final int INIT_POS_Y = 100;
 	/** Distance between ships. */
 	private static final int SEPARATION_DISTANCE = 40;
@@ -354,7 +354,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
+					column.get(i).destroy(column.get(i));
 					this.logger.info("Destroyed ship in ("
 						+ this.enemyShips.indexOf(column) + "," + i + ")");
 				}
